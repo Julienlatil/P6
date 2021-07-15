@@ -13,13 +13,13 @@ const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
 //connexion à la DB
-mongoose.connect('mongodb+srv://JULIEN123:5YJDA4cZT2NHADpS@cluster0.iv3wz.mongodb.net/Cluster0?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+mongoose.connect(process.env.DB,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
     })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .then(() => console.log('connected to the database!'))
+  .catch((error) => console.log(error));
 
 //correction des erreurs de CORS
 app.use((req, res, next) => {
