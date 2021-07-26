@@ -28,3 +28,8 @@ Installation du backend
     * path
     * helmet
     * http
+    * XSS-clean
+    * express-mongo-sanitize
+    * toobusy-js
+    * password-validator
+    * express-rate-limit
