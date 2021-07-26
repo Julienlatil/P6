@@ -1,15 +1,12 @@
-////////////////////////////////MODELE USER//////////////////////////
-
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator'); //email unique 
+const uniqueValidator = require('mongoose-unique-validator');
 
-
-//création du schéma strict User
 const userSchema = mongoose.Schema({
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-});
+  // avec unique: true on empeche que plusieurs ux utilisent la meme email, mais on peut avoir des erreurs illisibles de mongodb
+  email:{type: String, required: true, unique: true},
+  password:{type : String, required: true}
+})
 
-userSchema.plugin(uniqueValidator); //email unique
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);
