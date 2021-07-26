@@ -23,7 +23,7 @@ var userRoutes = require('./routes/user'); //accede aux users
 
 var toobusy = require('toobusy-js');
 
-mongoose.connect('mongodb+srv://JULIEN123:5YJDA4cZT2NHADpS@cluster0.iv3wz.mongodb.net/Cluster0?retryWrites=true&w=majority', {
+mongoose.connect('', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(function () {
