@@ -1,29 +1,23 @@
-/////////////////////MULTER CONFIGURATION///////////////////
-
-const multer = require('multer'); //package permettant de gérer les fichiers entrants dans les requêtes http
-
-//type de fichiers acceptés
+const multer = require('multer');
+//genere l extension du fichier
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  "image/webp": "webp",
+  "image/gif": "gif"
 };
-
-//indique à multer où enregistrer les fichiers entrants
-const storage = multer.diskStorage({
-  //indique d'enregistrer les fichiers dans le dossiers images
+//indique a multer ou enregistrer les images et comment les nommer:(remplace " " par _ et ajoute un timestamp dinon probleme niveau server)
+//si on utilisait le nom d origine, probleme qwuand 2 fichiers on le meme nom
+const storage = multer.diskStorage({//on enregistre sur le disk
   destination: (req, file, callback) => {
-    callback(null, 'images');
+    callback(null, 'images');//null pour dire q u il n y a pas eu d erreur a ce niveau la
   },
-  //indique d'utiliser le nom d'origine, de remplacer les espaces par des _, et d'ajouter un timestamp
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
-    const nameWithoutExtension = name.split('.')[0];
-    //Résout l'extension de fichier approprié
     const extension = MIME_TYPES[file.mimetype];
-    callback(null, nameWithoutExtension + Date.now() + '.' + extension);
+    callback(null, name + Date.now() + '.' + extension);
   }
 });
 
-//constante storage ajoutée à multer et gestion uniquement des fichiers images
-module.exports = multer({ storage: storage }).single('image');
+module.exports = multer({storage: storage}).single('image'); //single car fichier unique
