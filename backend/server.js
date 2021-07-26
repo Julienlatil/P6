@@ -1,9 +1,7 @@
-//////////////////////SERVEUR///////////////////////////////////
+const http = require('http');//import du package HTTP
+const app = require('./app');
+//la fonction normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne ;
 
-const http = require('http'); //importation package http de Node
-const app = require('./app'); //importation du fichier app.js
-
-//renvoit un port valide sous forme de chaine ou de numéro
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -17,10 +15,7 @@ const normalizePort = val => {
 };
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
-
-
-// Cherche erreur et les gère, les garde dans server
+//la fonction errorHandler  recherche les différentes erreurs et les gère de manière appropriée. Elle est ensuite enregistrée dans le serveur ;
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -41,15 +36,14 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app); // création du serveur à partir du fichier app.js
 
-//configuration du serveur
+const server = http.createServer(app);
+
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
   console.log('Listening on ' + bind);
 });
-
-//mise en marche du serveur
+//un écouteur d'évènements   consignant le port ou le canal nommé sur lequel le serveur s'exécute dans la console.
 server.listen(port);
